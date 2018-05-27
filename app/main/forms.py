@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.validators import Required
-from wtforms import StringField,TextAreaField,SubmitField, SelectField, RadioField
+from wtforms import StringField,TextAreaField,SubmitField, SelectField, RadioField, BooleanField, DateField
 
  
 
@@ -8,10 +8,14 @@ class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.',validators = [Required()])
     submit = SubmitField('SUBMIT') 
 
-class PitchForm(FlaskForm):
-    category_id = SelectField('Select Category', choices=[('1', 'Creative Ideas'), ('2', 'Funny Stories'), ('3', 'Motivational Speeches'),('4','Business Ideas')])
-    content = TextAreaField('YOUR PITCH')
-    submit = SubmitField('Create Pitch')
+class PostForm(FlaskForm):
+    category_id = SelectField('Tutorial categories', choices=[('1', 'Introduction to Blender'), ('2', 'More advanced tutorials'), ('3', 'Hardcore Blender Tutorials'),('4','Blender python scrypting')])
+    title = StringField('title',validators=[Required()])
+    date = DateField('Date',validators=[Required()])
+    content = TextAreaField('Write a post')
+    conscent = BooleanField('I understand the regulations of posting',validators=[Required()])
+    submit = SubmitField('Submit post')
+
 
 class CommentsForm(FlaskForm):
     comment = TextAreaField('Comment on this pitch:', validators=[Required()])
@@ -19,6 +23,5 @@ class CommentsForm(FlaskForm):
     submit = SubmitField('SUBMIT') 
 
 class UpvoteForm(FlaskForm):
-
     submit = SubmitField('Upvote')
     

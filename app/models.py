@@ -16,19 +16,22 @@ class Admin(UserMixin, db.Model):
     username = db.Column(db.String(255),index = True) 
     email = db.Column(db.String(255),unique = True,index = True)
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
-    bio = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String())
+    pic_path = db.Column(db.String())
     password_hash = db.Column(db.String(255))
     post = db.relationship('BlogPost',backref = 'admins',lazy="dynamic")
 
-    def save_comment(self):
+    def save_admin(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
     def get_comments(cls,id):
-        reviews = Comment.query.filter_by(pitch_id=id).all()
+        reviews = Comment.query.filter_by(post_id=id).all()
         return comments
+    @classmethod
+    def delete_comments(cls,id):
+        pass
+
 
     @property
     def password(self):
@@ -49,38 +52,39 @@ class Admin(UserMixin, db.Model):
 
 class BlogPost(db.Model):
     '''
-    Pitch class to define Pitch Objects
+    Post class to define BlogPost Objects
     '''
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer,primary_key = True)
-    pitch = db.Column(db.String)
+    post = db.Column(db.String)
     category_id = db.Column(db.Integer)
     admin_id = db.Column(db.Integer,db.ForeignKey("admins.id"))
     comments = db.relationship('Comment',backref = 'posts',lazy="dynamic")
+
         
 
-    def save_pitch(self):
+    def save_post(self):
         '''
-        Function that saves pitches
+        Function that saves posts
         '''
         db.session.add(self)
         db.session.commit()
     
     @classmethod
-    def get_all_pitches(cls):
+    def get_all_posts(cls):
         '''
-        Function that queries the databse and returns all the pitches
+        Function that queries the databse and returns all the posts
         '''
         return BlogPost.query.all()
 
     @classmethod
-    def get_pitches_by_category(cls,cat_id):
+    def get_posts_by_category(cls,cat_id):
         '''
-        Function that queries the databse and returns pitches based on the
+        Function that queries the databse and returns posts based on the
         category passed to it
         '''
-        return Pitch.query.filter_by(category_id= cat_id)
+        return BlogPost.query.filter_by(category_id = cat_id)
 
 
 
@@ -124,11 +128,11 @@ class Role(db.Model):
         return 'Admin {}'.format(self.name)  
 
 
-class PitchCategory(db.Model):
+class PostCategory(db.Model):
     '''
-    Function that defines different categories of pitches
+    Function that defines different categories of posts
     '''
-    __tablename__ ='pitch_categories'
+    __tablename__ ='post_categories'
 
 
     id = db.Column(db.Integer, primary_key=True)
@@ -140,5 +144,5 @@ class PitchCategory(db.Model):
         '''
         This function fetches all the categories from the database
         '''
-        categories = PitchCategory.query.all()
+        categories = PostCategory.query.all()
         return categories

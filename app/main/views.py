@@ -1,57 +1,67 @@
 from flask import render_template, request, redirect, url_for, abort  
 from . import main  
-from .forms import CommentsForm, UpdateProfile, PitchForm, UpvoteForm
+from .forms import CommentsForm, UpdateProfile, PostForm, UpvoteForm
 from ..models import Comment, BlogPost, Admin
 from flask_login import login_required, current_user
 from .. import db
 import markdown2
+from ..auth import forms
+
 
 
 
 @main.route('/')
 @login_required
 def index():
+    form = PostForm()
     title = 'Blender Fender - 3D Tutorials'
+    search_post = request.args.get('pitch_query')
+    posts= BlogPost.get_all_posts()
+    
+    if form.validate_on_submit():
+        post = form.content.data
+        category_id = form.category_id.data
+        new_post = BlogPost(post = post, category_id = category_id)
+        new_post.save_post()
 
-    search_pitch = request.args.get('pitch_query')
-    posts= BlogPost.get_all_pitches() 
-    return render_template('index.html', title = title, posts= posts)
+    return render_template('index.html', title = title, post = posts, new_posts_form = form)
+
+
 
 #this section consist of the category root functions
 
-@main.route('/inteview/pitches/')
-def Creative_Ideas():
-  
-    pitches= Pitch.get_all_pitches()
-    title = 'PITCH-IT Creative Ideas'  
+@main.route('/introduction/posts/')
+def introduction():
+    posts = BlogPost.get_all_posts()
+    title = 'Introduction to Blender'  
     return render_template('creative_ideas.html', title = title, pitches= pitches )
 
-@main.route('/pick_up_lines/pitches/')
-def Funny_Stories():
+@main.route('/intermediary/posts/')
+def intermediary():
 
-    title = 'PITCH-IT Funny Stories'
+    title = 'Intermediary Blender tutorials'
 
-    pitches= Pitch.get_all_pitches()
+    posts = BlogPost.get_all_posts()
 
     return render_template('pick_up_lines.html', title = title, pitches= pitches )
 
-@main.route('/promotion/pitches/')
-def Motivational_Speeches():
+@main.route('/advanced/posts/')
+def advanced():
    
-    title = 'PITCH-IT Motivational Speeches'
+    title = 'Advanced Blender tutorials'
 
-    pitches= Pitch.get_all_pitches()
+    posts = BlogPost.get_all_posts()
 
     return render_template('promotion.html', title = title, pitches= pitches )
 
 
-@main.route('/product/pitches/')
-def Business_Ideas():
+@main.route('/python/posts/')
+def python():
     '''
     View root page function that returns the index page and its data
     '''
-    title = 'PITCH-IT Business Ideas'
-    pitches= Pitch.get_all_pitches()
+    title = 'Using Python in Blender'
+    posts = BlogPost.get_all_posts()
     return render_template('businessIdeas.html', title = title, pitches= pitches )
  
 #  end of category root functions
@@ -78,16 +88,16 @@ def search(pitch_name):
 
 @main.route('/pitch/new/', methods = ['GET','POST'])
 @login_required
-def new_pitch():
+def new_post():
   
-    form = PitchForm()
+    form = PostForm()
     if category is None:
         abort( 404 )
 
     if form.validate_on_submit():
         pitch= form.content.data
         category_id = form.category_id.data
-        new_pitch= Pitch(pitch= pitch, category_id = category_id)
+        new_post= Pitch(pitch= pitch, category_id = category_id)
 
         new_pitch.save_pitch()
         return redirect(url_for('main.index'))

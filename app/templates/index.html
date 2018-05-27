@@ -5,23 +5,23 @@
 {% block content %}
 
 
-
+<div class="base_style">
     <div class = "container main_page">
         <div class="row">
-                <img src="{{url_for('static', filename='images/logo_main.png', width=20)}}"/>
 
-            <h2 class="medium-styled-text">Inspiration CAN be shared...</h2>
+            <h2 class="medium-styled-text">Welcome back, {{ username }}</h2>
 
 
             <div class="jumbotron my_tron">
                 <div>
-                    <a href="{{url_for('main.new_pitch')}}">
-                        <h3>Create a new Pitch..</h3></a>
+                    <h1>Create a new tutorial</h1>
+                
+                        {{wtf.quick_form(new_posts_form)}}
+                        
                            
                         </div>
                 </div>
             </div>        
-        </div>
         </div>
     </hr>
     <div class="well">
@@ -30,19 +30,19 @@
                         <button class="dropbtn">Pitch Categories</button>
                         
                         <div class="dropdown-content">
-                                <a href="{{url_for('main.Creative_Ideas')}}" class="categories">
+                                <a href="{{url_for('main.introduction')}}" class="categories">
                                         <br>
                                         <h2>Creative Ideas</h2>
                                     </a>
-                                <a href="{{url_for('main.Funny_Stories')}}" class="categories">
+                                <a href="{{url_for('main.intermediary')}}" class="categories">
                                         <br>
                                         <h2>Funny Stories</h2>
                                     </a>
-                                <a href="{{url_for('main.Motivational_Speeches')}}" class="categories">
+                                <a href="{{url_for('main.advanced')}}" class="categories">
                                         <br>
                                         <h2>Motivational Speeches</h2>  
                                     </a>
-                                <a href="{{url_for('main.Business_Ideas')}}" class="categories">
+                                <a href="{{url_for('main.python')}}" class="categories">
                                         <br>
                                         <h2>Business Ideas</h2>
                                     </a>

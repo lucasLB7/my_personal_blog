@@ -22,6 +22,11 @@ font-family: 'Carter One', cursive; */
     text-align: center;
 }
 
+.base_style {
+    background-image: url(../images/indexBackground.png);
+    background-size: contain;
+}
+
 .main_page{
     text-align: center;
     border-radius: 2%;
@@ -104,5 +109,6 @@ font-family: 'Carter One', cursive; */
 }
 
 .my_tron{
-    background-image: url(../images/background_image.png)
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
 }
