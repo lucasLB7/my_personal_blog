@@ -1,0 +1,25 @@
+{% extends 'bootstrap/base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="register_main">
+    <img src="{{url_for('static', filename='images/logo_main.png', width=20)}}" />
+  <h1 class="header_font">Register to PITCH-IT..</h1>
+
+  <div class="jumbotron">
+
+
+
+  {{wtf.quick_form(registration_form)}}
+  <a href="{{url_for('auth.terms')}}">View terms and conditions</a>
+
+
+ </div>
+</div>
+
+{% endblock%}
