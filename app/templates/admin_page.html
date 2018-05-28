@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+
+
+<div class="base_style">
+    <div class = "container main_page">
+        <div class="row">
+
+            <h2 class="medium-styled-text">Welcome back, {{ current_user.username }}</h2>
+
+
+            <div class="jumbotron my_tron">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                              Create new tutorial
+                            </button>
+                          </p>
+                          <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                    {{wtf.quick_form(new_posts_form)}}
+                            </div>
+                          </div>
+                
+                </div>
+            </div>        
+        </div>
+    </hr>
+    <div class="well">
+        <div class="all-pitches">
+                <div class="dropdown">
+                        <button class="dropbtn">Browse tutorials</button>
+                        
+                        <div class="dropdown-content">
+                                <a href="{{url_for('main.introduction')}}" class="categories">
+                                        <br>
+                                        <h2>Introduction to Blender</h2>
+                                    </a>
+                                <a href="{{url_for('main.intermediary')}}" class="categories">
+                                        <br>
+                                        <h2>Intermediary Blender tutorials</h2>
+                                    </a>
+                                <a href="{{url_for('main.advanced')}}" class="categories">
+                                        <br>
+                                        <h2>Advanced blender tutorials</h2>  
+                                    </a>
+                                <a href="{{url_for('main.python')}}" class="categories">
+                                        <br>
+                                        <h2>Python for Blender</h2>
+                                    </a>
+                
+                        </div>
+                        </div>
+                <hr> 
+                <div class="center">
+                    <h2>VIEW LATEST TUTORIALS</h2>
+                    <div class="well">
+                            {{macro.displayPosts(post)}}
+                
+                </div>
+                </div>
+
+        </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

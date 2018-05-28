@@ -9,58 +9,16 @@
     <div class = "container main_page">
         <div class="row">
 
-            <h2 class="medium-styled-text">Welcome back, {{ username }}</h2>
+            <h2 class="medium-styled-text">Hey there, Welcome to Blender Fender!</h2>
+            <div class="container" >
+                    <p>Get Updates!</p>
+            
+                    {{ wtf.quick_form(subscribe_form)}}
+                    
+            
+            </div>
 
 
-            <div class="jumbotron my_tron">
-                <div>
-                    <h1>Create a new tutorial</h1>
-                
-                        {{wtf.quick_form(new_posts_form)}}
-                        
-                           
-                        </div>
-                </div>
-            </div>        
-        </div>
-    </hr>
-    <div class="well">
-        <div class="all-pitches">
-                <div class="dropdown">
-                        <button class="dropbtn">Pitch Categories</button>
-                        
-                        <div class="dropdown-content">
-                                <a href="{{url_for('main.introduction')}}" class="categories">
-                                        <br>
-                                        <h2>Creative Ideas</h2>
-                                    </a>
-                                <a href="{{url_for('main.intermediary')}}" class="categories">
-                                        <br>
-                                        <h2>Funny Stories</h2>
-                                    </a>
-                                <a href="{{url_for('main.advanced')}}" class="categories">
-                                        <br>
-                                        <h2>Motivational Speeches</h2>  
-                                    </a>
-                                <a href="{{url_for('main.python')}}" class="categories">
-                                        <br>
-                                        <h2>Business Ideas</h2>
-                                    </a>
-                
-                        </div>
-                        </div>
-                <hr> 
-                <div class="center">
-                    <h2>LATEST PITCHES</h2>
-                    <div class="well">
-                {{macro.displayPitches(pitches)}}
-                </div>
-                </div>
-
-        </div>
-        </div>
-
-    </div>
-
+            
 
 {% endblock %}

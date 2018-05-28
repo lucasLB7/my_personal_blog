@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, abort  
 from . import main  
-from .forms import CommentsForm, UpdateProfile, PostForm, UpvoteForm
+from .forms import CommentsForm, UpdateProfile, PostForm, UpvoteForm, SubscriptionForm
 from ..models import Comment, BlogPost, Admin
 from flask_login import login_required, current_user
 from .. import db
@@ -8,15 +8,32 @@ import markdown2
 from ..auth import forms
 
 
-
-
 @main.route('/')
-@login_required
+@main.route('/index/')
 def index():
+    form = SubscriptionForm()
+    title = 'Blender Fender - HOME'
+    
+    if form.validate_on_submit():
+        subscriber = Subscriber(email=form.email.data)
+        db.session.add(subscriber)
+        db.session.commit()
+
+        email_message('Succesfully registered to Blender Fender','email/subscribe_email', subscriber.email, subscriber=subscriber)
+        flash('Nice! Welcome to the clan! A confirmation email has been sent to you')
+        return redirect(url_for("main.index"))
+    return render_template('index.html', title=title, subscribe_form = form )
+
+
+
+@main.route('/main/admin/',methods = ["GET","POST"])
+@login_required
+def admin():
     form = PostForm()
-    title = 'Blender Fender - 3D Tutorials'
+    title = 'Blender Fender - Admin page'
     search_post = request.args.get('pitch_query')
     posts= BlogPost.get_all_posts()
+    print(posts)
     
     if form.validate_on_submit():
         post = form.content.data
@@ -24,7 +41,7 @@ def index():
         new_post = BlogPost(post = post, category_id = category_id)
         new_post.save_post()
 
-    return render_template('index.html', title = title, post = posts, new_posts_form = form)
+    return render_template('admin_page.html', title = title, post = posts, new_posts_form = form)
 
 
 

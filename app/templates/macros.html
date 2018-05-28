@@ -1,13 +1,19 @@
-{% macro displayPitches(pitches_list) %}
+{% macro displayPosts(post) %}
 
-    {% for pitch in pitches_list %}
+    {% for post in post %}
       <div class="panel">
-          <p>{{pitch.pitch}}</p>
-          <p>{{pitch.category}}</p>
-          <br>
-          <a href="{{url_for('main.new_comment',id=pitch.id)}}">Give us your thoughts</a>&nbsp;&nbsp;|
-          <a href="{{url_for('main.view_comments',id=pitch.id)}}">View comments</a>&nbsp;&nbsp;|
-          <a href="{{url_for('main.new_comment',id=pitch.id)}}">Vote</a>
+          <p>{{post.post}}</p>
+          {% if post.category_id ==1 %}
+              <h1>Introduction to Blender</h1>
+          {% elif post.category_id==2 %}
+              <h1>Intermediary tutorials</h1>
+          {% elif post.category_id==3 %}
+              <h1>Advanced tutorials</h1>
+          {% elif post.category_id==4 %}
+              <h1>Blender python scrypting</h1>
+          {% endif %}
+
+         
       </div> 
     {% endfor %}
 
@@ -30,7 +36,7 @@
 {% endfor %}
 {% endmacro %}
 
-{% macro displayPitchesInCategories(pitches,id)%}
+{% macro displayPitchesInCategories(posts,id)%}
   {% for pitch in pitches %}
     {% if pitch.category_id==id%}
         <div class="panel style="style="box-shadow: 5px 5px 5px 5px #f2f2f2; padding:10px;">
