@@ -24,6 +24,12 @@ def index():
         return redirect(url_for("main.index"))
     return render_template('index.html', title=title, subscribe_form = form )
 
+@main.route('/main/<int:id>')
+def delete(id):
+    post = BlogPost.query.filter_by(id=id).first()
+    BlogPost.delete_post(post)
+    return redirect(url_for('main.admin'))
+
 
 
 @main.route('/main/admin/',methods = ["GET","POST"])
@@ -33,13 +39,15 @@ def admin():
     title = 'Blender Fender - Admin page'
     search_post = request.args.get('pitch_query')
     posts= BlogPost.get_all_posts()
-    print(posts)
+    
+
     
     if form.validate_on_submit():
         post = form.content.data
         category_id = form.category_id.data
         new_post = BlogPost(post = post, category_id = category_id)
         new_post.save_post()
+
 
     return render_template('admin_page.html', title = title, post = posts, new_posts_form = form)
 

@@ -78,6 +78,12 @@ class BlogPost(db.Model):
         '''
         db.session.add(self)
         db.session.commit()
+
+   
+    def delete_post(self):
+        db.session.delete(self)
+        db.session.commit()
+
     
     @classmethod
     def get_all_posts(cls):
