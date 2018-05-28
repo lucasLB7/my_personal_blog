@@ -13,6 +13,7 @@ from ..auth import forms
 def index():
     form = SubscriptionForm()
     title = 'Blender Fender - HOME'
+    posts= BlogPost.get_all_posts()
     
     if form.validate_on_submit():
         subscriber = Subscriber(email=form.email.data)
@@ -22,7 +23,7 @@ def index():
         email_message('Succesfully registered to Blender Fender','email/subscribe_email', subscriber.email, subscriber=subscriber)
         flash('Nice! Welcome to the clan! A confirmation email has been sent to you')
         return redirect(url_for("main.index"))
-    return render_template('index.html', title=title, subscribe_form = form )
+    return render_template('index.html', title=title, subscribe_form = form, post=posts )
 
 @main.route('/main/<int:id>')
 def delete(id):
