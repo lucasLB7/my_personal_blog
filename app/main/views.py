@@ -62,11 +62,12 @@ def admin():
 
 
 @main.route('/main/tutorials/')
-def tutorials():
+def tutorials(id):
     title = 'Blender Fender - Tutorials'
     posts= BlogPost.get_all_posts()
 
     return render_template('tutorial.html',title= title ,post = posts)
+    
 
 
 #this section consist of the category root functions
