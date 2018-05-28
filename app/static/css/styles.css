@@ -24,7 +24,7 @@ font-family: 'Carter One', cursive; */
 
 .base_style {
     background-image: url(../images/indexBackground.png);
-    background-size: contain;
+    background-size: cover;
 }
 
 .main_page{

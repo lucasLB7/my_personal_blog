@@ -46,8 +46,11 @@ def admin():
     if form.validate_on_submit():
         post = form.content.data
         category_id = form.category_id.data
-        new_post = BlogPost(post = post, category_id = category_id)
+        mytitle=form.title.data
+        new_post = BlogPost(post = post, category_id = category_id, post_title = mytitle)
         new_post.save_post()
+        print(new_post.post)
+        print(new_post.post_title)
 
 
     return render_template('admin_page.html', title = title, post = posts, new_posts_form = form)
