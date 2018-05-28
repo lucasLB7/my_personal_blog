@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+<h1>TERMS AND CONDITIONS</h1>
+
+<h2>GENERAL:</h2>
+<p>The following terms and conditions constitute the entire agreement between YOU and PITCHIT.COM and govern your use of the services, superseding any prior agreements between YOU and MOCKKING.COM .YOU also may be subject to additional terms and conditions that may apply when YOU use affiliate services, third-party content or third-party software. These Terms and Conditions represent a contract between YOU and MOCKKING.COM, they (and any dispute or claim arising in connection with them or their subject matter or formation) shall be governed by and interpreted in accordance with the law of India.Any term or terms which may be deemed unenforceable or unlawful and fall to be struck out, or otherwise disregarded by a court shall be done so without prejudice to the rest of the agreement. Any failure by MOCKKING.COM to exercise or enforce any right or provision of these terms and conditions shall not constitute a waiver of such right or provision. References to the words “include” and “including” shall be interpreted as without limitation, irrespective of whether certain instances of those words expressly state “without limitation” and other instances do not.</p>
+<h2>
+Disclaimer Policy:
+</h2>
+<p>
+        The use of this website is subject to the following terms:
+        
+        The content of the pages of this website is for your general information and use only. It is subject to change without notice.
+        This website uses cookies to monitor browsing preferences. If you do allow cookies to be used, the personal information may be stored by us.
+        Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials found or offered on this website for any particular purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.
+        Your use of any information or materials on this website is entirely at your own risk, for which we shall not be liable. It shall be your own responsibility to ensure that any products, services or information available through this website meet your specific requirements.
+        This website contains material which is owned by or licensed to us. This material includes, but is not limited to, the design, layout, look, appearance and graphics. Reproduction of any material from the website of any sorts is strictly prohibited .
+        Unauthorised use of this website may give rise to a claim for damages and/or be a criminal offence.
+        From time to time this website may also include links to other websites. These links are provided for your convenience to provide further information. They do not signify that we endorse the website(s). We have no responsibility for the content of the linked website(s).
+        Your use of this website and any dispute arising out of such use of the website is subject to the laws of India.</p>
+</div>
+        {% endblock %}

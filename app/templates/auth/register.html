@@ -1,0 +1,65 @@
+{% extends 'bootstrap/base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+
+    <div class="container"> 
+      <div class="row">
+        <div class="col-md-1">
+        <img class="logo_main" src="{{url_for('static', filename='images/BlenderDesktopLogo.png', width=20)}}" />
+        </div>
+        <div class="col-md-11">
+            <h1 class="title">Blender Fender</h1>
+        </div>
+        </div>
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+            <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title title">Register</div>
+                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+                    </div>     
+
+                    <div style="padding-top:30px" class="panel-body" >
+                        {{wtf.quick_form(registration_form)}}
+                        <a href="{{url_for('auth.terms')}}">View terms and conditions</a>
+
+                        
+
+                        </div>                     
+                    </div>  
+        </div>
+        <div id="signupbox" style="display:none; margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">Sign Up</div>
+                            <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Sign In</a></div>
+                        </div>  
+                        <div class="panel-body" >                            
+                                  
+                                {{wtf.quick_form(registration_form)}}
+                                <a href="{{url_for('auth.terms')}}">View terms and conditions</a>
+                                
+                                <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
+                                    
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up with Facebook</button>
+                                    </div>                                           
+                                        
+                                </div>
+                                
+                                
+                                
+                         </div>
+                    </div>
+                  </div>
+                </div>
+
+
+{% endblock%}
