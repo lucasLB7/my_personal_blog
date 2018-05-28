@@ -25,6 +25,8 @@ def index():
         return redirect(url_for("main.index"))
     return render_template('index.html', title=title, subscribe_form = form, post=posts )
 
+
+
 @main.route('/main/<int:id>')
 def delete(id):
     post = BlogPost.query.filter_by(id=id).first()
@@ -47,14 +49,24 @@ def admin():
         post = form.content.data
         category_id = form.category_id.data
         mytitle=form.title.data
-        new_post = BlogPost(post = post, category_id = category_id, post_title = mytitle)
+        description = form.description.data
+        new_post = BlogPost(post = post, category_id = category_id, post_title = mytitle, description = description)
         new_post.save_post()
         print(new_post.post)
         print(new_post.post_title)
+        print(new_post.description)
+
 
 
     return render_template('admin_page.html', title = title, post = posts, new_posts_form = form)
 
+
+@main.route('/main/tutorials/')
+def tutorials():
+    title = 'Blender Fender - Tutorials'
+    posts= BlogPost.get_all_posts()
+
+    return render_template('tutorial.html',title= title ,post = posts)
 
 
 #this section consist of the category root functions

@@ -66,6 +66,7 @@ class BlogPost(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     post_title = db.Column(db.String)
+    description = db.Column(db.String)
     post = db.Column(db.String)
     category_id = db.Column(db.Integer)
     admin_id = db.Column(db.Integer,db.ForeignKey("admins.id"))

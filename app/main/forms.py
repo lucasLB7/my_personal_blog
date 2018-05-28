@@ -12,6 +12,7 @@ class UpdateProfile(FlaskForm):
 class PostForm(FlaskForm):
     category_id = SelectField('Tutorial categories', choices=[('1', 'Introduction to Blender'), ('2', 'More advanced tutorials'), ('3', 'Hardcore Blender Tutorials'),('4','Blender python scrypting')])
     title = StringField('title',validators=[Required()])
+    description = StringField('description',validators=[Required()])
     date = DateField('Start Date', format='%m/%d/%Y',validators=[Required()])
     content = TextAreaField('Write a post')
     conscent = BooleanField('I understand the regulations of posting',validators=[Required()])
