@@ -19,10 +19,13 @@
 
 {% endmacro %}
 
+
+
 {% macro displayPosts(post) %}
 
     {% for post in post %}
-      <div class="panel">
+      <div class="panel tutorials">
+        <div class="my_tron listOfTutorials">
           
           {% if post.category_id ==1 %}
               <h1>Introduction to Blender</h1>
@@ -34,6 +37,7 @@
               <h1>Blender python scrypting</h1>
           {% endif %}
           <p>{{post.post}}</p>
+        </div>
       </div> 
     {% endfor %}
 

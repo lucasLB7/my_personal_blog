@@ -112,3 +112,16 @@ font-family: 'Carter One', cursive; */
     background: rgba(0, 0, 0, 0.5);
     color: white;
 }
+
+.tutorials{
+    background-image: url(../images/grey_background.png);
+    background-size: cover;
+}
+
+.listOfTutorials{
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 30px;
+    color: orange
+
+
+}
