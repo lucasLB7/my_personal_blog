@@ -62,7 +62,7 @@ def admin():
 
 
 @main.route('/main/tutorials/')
-def tutorials(id):
+def tutorials():
     title = 'Blender Fender - Tutorials'
     posts= BlogPost.get_all_posts()
 
