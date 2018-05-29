@@ -21,10 +21,9 @@ class PostForm(FlaskForm):
 
 class CommentsForm(FlaskForm):
     comment = TextAreaField('Comment on this pitch:', validators=[Required()])
+    username = StringField('Whats your name.', validators=[Required()])
     submit = SubmitField('SUBMIT') 
 
-class UpvoteForm(FlaskForm):
-    submit = SubmitField('Upvote')
 
 
 class SubscriptionForm(FlaskForm):
