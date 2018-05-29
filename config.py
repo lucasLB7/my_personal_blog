@@ -7,6 +7,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL",'postgresql+psycopg2://d4rkkn1t3:psql@localhost/blog')
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
+    SQLALCHEMY_TRACK_MODIFICATIONS=True
 
 
     MAIL_SERVER = 'smtp.googlemail.com'
