@@ -66,12 +66,15 @@ def tutorials():
     title = 'Blender Fender - Tutorials'
     posts= BlogPost.get_all_posts()
     form = CommentsForm()
+    comments = Comment.get_comments()
+
     if form.validate_on_submit():
-        new_comment = Comment(pitch_id =id,comment=form.comment.data, username=username)
+        new_comment = Comment(comment=form.comment.data)
         new_comment.save_comment()
         return redirect(url_for('main.tutorials'))
 
-    return render_template('tutorial.html',title= title ,post = posts, comment_form=form)
+    return render_template('tutorial.html',title= title ,post = posts, comment_form=form, comments = comments, id=id)
+
 
 
 
@@ -162,16 +165,6 @@ def category(id):
     pitches_in_category = Pitches.get_pitch(id)
     return render_template('category.html' ,category= category, pitches= pitches_in_category)
 
-@main.route('/pitch/comments/new/<int:id>',methods = ['GET','POST'])
-@login_required
-def new_comment(id):
-    form = CommentsForm()
-    if form.validate_on_submit():
-        new_comment = Comment(pitch_id =id,comment=form.comment.data,username=current_user.username)
-        new_comment.save_comment()
-        return redirect(url_for('main.index'))
-    #title = f'{pitch_result.id} review'
-    return render_template('new_comment.html',comment_form=form, vote_form= vote_form)
 
 
 
@@ -216,13 +209,7 @@ def update_profile(uname):
 
 
 
-@main.route('/view/comment/<int:id>')
-def view_comments(id):
-    '''
-    Function that returs  the comments belonging to a particular pitch
-    '''
-    comments = Comment.get_comments(id)
-    return render_template('view_comments.html',comments = comments, id=id)
+
 
 
 
