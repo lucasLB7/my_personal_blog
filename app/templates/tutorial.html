@@ -14,13 +14,15 @@
                 </div>
                 </div>
                 </div>
-                <div class="jumbotron">
+                <div class="well">
                         <h1>View latest comments:</h1>
-                        <ul>
+                        
                         {% for item in comments %}
-                        <li>
+                        <ol></ol>
+                        <li class="my_tron">
                             {{item.comment}}
                         </li>
+                        </ol>
                     {% endfor %}
                 </div>
 
