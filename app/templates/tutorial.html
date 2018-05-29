@@ -9,9 +9,21 @@
                     <h2>Blender Fender - Our tutorials</h2>
                     <div class="well">
                             {{macro.displayPostsPage(post)}}
+                            {{ wtf.quick_form(comment_form) }}
                 
                 </div>
                 </div>
+                </div>
+                <div class="well">
+                        <h1>View latest comments:</h1>
+                        
+                        {% for item in comments %}
+                        <ol></ol>
+                        <li class="my_tron centerd">
+                            {{item.comment}}
+                        </li>
+                        </ol>
+                    {% endfor %}
                 </div>
 
                 </div>

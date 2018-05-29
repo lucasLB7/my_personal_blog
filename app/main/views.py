@@ -1,70 +1,30 @@
-from flask import render_template, request, redirect, url_for, abort  
+from flask import render_template, request, redirect, url_for, abort, flash
 from . import main  
-<<<<<<< HEAD
-from .forms import CommentsForm, UpdateProfile, PitchForm, UpvoteForm
-=======
-from .forms import CommentsForm, UpdateProfile, PostForm, UpvoteForm, SubscriptionForm
->>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
-from ..models import Comment, BlogPost, Admin
+from .forms import CommentsForm, UpdateProfile, PostForm, SubscriptionForm
+from ..models import Comment, BlogPost, Admin, Subscriber
 from flask_login import login_required, current_user
 from .. import db
 import markdown2
-<<<<<<< HEAD
-
-
-
-@main.route('/')
-@login_required
-def index():
-    title = 'Blender Fender - 3D Tutorials'
-
-    search_pitch = request.args.get('pitch_query')
-    posts= BlogPost.get_all_pitches() 
-    return render_template('index.html', title = title, posts= posts)
-
-#this section consist of the category root functions
-
-@main.route('/inteview/pitches/')
-def Creative_Ideas():
-  
-    pitches= Pitch.get_all_pitches()
-    title = 'PITCH-IT Creative Ideas'  
-    return render_template('creative_ideas.html', title = title, pitches= pitches )
-
-@main.route('/pick_up_lines/pitches/')
-def Funny_Stories():
-
-    title = 'PITCH-IT Funny Stories'
-
-    pitches= Pitch.get_all_pitches()
-
-    return render_template('pick_up_lines.html', title = title, pitches= pitches )
-
-@main.route('/promotion/pitches/')
-def Motivational_Speeches():
-   
-    title = 'PITCH-IT Motivational Speeches'
-
-    pitches= Pitch.get_all_pitches()
-=======
 from ..auth import forms
+from ..emails import send_sub
 
 
-@main.route('/')
-@main.route('/index/')
+@main.route('/',methods=['GET','POST'])
+@main.route('/index/', methods=['GET','POST'])
 def index():
     form = SubscriptionForm()
     title = 'Blender Fender - HOME'
     posts= BlogPost.get_all_posts()
+
+    # msg = Message('Welcome to Blender Fender', sender="plucaslambert@gmail.com", recipients=[])
     
     if form.validate_on_submit():
         subscriber = Subscriber(email=form.email.data)
         db.session.add(subscriber)
         db.session.commit()
-
-        email_message('Succesfully registered to Blender Fender','email/subscribe_email', subscriber.email, subscriber=subscriber)
+        send_sub(subscriber)
         flash('Nice! Welcome to the clan! A confirmation email has been sent to you')
-        return redirect(url_for("main.index"))
+
     return render_template('index.html', title=title, subscribe_form = form, post=posts )
 
 
@@ -103,13 +63,21 @@ def admin():
     return render_template('admin_page.html', title = title, post = posts, new_posts_form = form)
 
 
-@main.route('/main/tutorials/')
+@main.route('/main/tutorials/', methods = ["GET","POST"])
 def tutorials():
     title = 'Blender Fender - Tutorials'
     posts= BlogPost.get_all_posts()
+    form = CommentsForm()
+    comments = Comment.get_comments()
 
-    return render_template('tutorial.html',title= title ,post = posts)
-    
+    if form.validate_on_submit():
+        new_comment = Comment(comment=form.comment.data)
+        new_comment.save_comment()
+        return redirect(url_for('main.tutorials'))
+
+    return render_template('tutorial.html',title= title ,post = posts, comment_form=form, comments = comments, id=id)
+
+
 
 
 #this section consist of the category root functions
@@ -135,20 +103,10 @@ def advanced():
     title = 'Advanced Blender tutorials'
 
     posts = BlogPost.get_all_posts()
->>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
 
     return render_template('promotion.html', title = title, pitches= pitches )
 
 
-<<<<<<< HEAD
-@main.route('/product/pitches/')
-def Business_Ideas():
-    '''
-    View root page function that returns the index page and its data
-    '''
-    title = 'PITCH-IT Business Ideas'
-    pitches= Pitch.get_all_pitches()
-=======
 @main.route('/python/posts/')
 def python():
     '''
@@ -156,7 +114,6 @@ def python():
     '''
     title = 'Using Python in Blender'
     posts = BlogPost.get_all_posts()
->>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
     return render_template('businessIdeas.html', title = title, pitches= pitches )
  
 #  end of category root functions
@@ -183,26 +140,16 @@ def search(pitch_name):
 
 @main.route('/pitch/new/', methods = ['GET','POST'])
 @login_required
-<<<<<<< HEAD
-def new_pitch():
-  
-    form = PitchForm()
-=======
 def new_post():
   
     form = PostForm()
->>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
     if category is None:
         abort( 404 )
 
     if form.validate_on_submit():
         pitch= form.content.data
         category_id = form.category_id.data
-<<<<<<< HEAD
-        new_pitch= Pitch(pitch= pitch, category_id = category_id)
-=======
         new_post= Pitch(pitch= pitch, category_id = category_id)
->>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
 
         new_pitch.save_pitch()
         return redirect(url_for('main.index'))
@@ -220,17 +167,6 @@ def category(id):
     pitches_in_category = Pitches.get_pitch(id)
     return render_template('category.html' ,category= category, pitches= pitches_in_category)
 
-@main.route('/pitch/comments/new/<int:id>',methods = ['GET','POST'])
-@login_required
-def new_comment(id):
-    form = CommentsForm()
-    vote_form = UpvoteForm()
-    if form.validate_on_submit():
-        new_comment = Comment(pitch_id =id,comment=form.comment.data,username=current_user.username,votes=form.vote.data)
-        new_comment.save_comment()
-        return redirect(url_for('main.index'))
-    #title = f'{pitch_result.id} review'
-    return render_template('new_comment.html',comment_form=form, vote_form= vote_form)
 
 
 
@@ -275,13 +211,7 @@ def update_profile(uname):
 
 
 
-@main.route('/view/comment/<int:id>')
-def view_comments(id):
-    '''
-    Function that returs  the comments belonging to a particular pitch
-    '''
-    comments = Comment.get_comments(id)
-    return render_template('view_comments.html',comments = comments, id=id)
+
 
 
 
