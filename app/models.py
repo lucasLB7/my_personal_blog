@@ -125,11 +125,11 @@ class Comment(db.Model):
 
     @classmethod
     def clear_comments(cls):
-        Comment.all_comments.clear()
+        Comment.all_comment.clear()
 
     @classmethod
-    def get_comments(cls,id):
-        comments = Comment.query.filter_by(post_id=id).all()
+    def get_comments(cls):
+        comments = Comment.query.all()
 
         return comments
 
