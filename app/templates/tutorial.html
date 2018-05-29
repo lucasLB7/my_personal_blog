@@ -14,13 +14,14 @@
                 </div>
                 </div>
                 </div>
-                <div>
+                <div class="jumbotron">
+                        <h1>View latest comments:</h1>
+                        <ul>
                         {% for item in comments %}
-    <li>
-        {{item.comment}}
-        <h4>Posted by: {{item.username}}</h4>
-    </li>
-{% endfor %}
+                        <li>
+                            {{item.comment}}
+                        </li>
+                    {% endfor %}
                 </div>
 
                 </div>
