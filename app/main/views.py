@@ -1,28 +1,30 @@
-from flask import render_template, request, redirect, url_for, abort  
+from flask import render_template, request, redirect, url_for, abort, flash
 from . import main  
 from .forms import CommentsForm, UpdateProfile, PostForm, SubscriptionForm
-from ..models import Comment, BlogPost, Admin
+from ..models import Comment, BlogPost, Admin, Subscriber
 from flask_login import login_required, current_user
 from .. import db
 import markdown2
 from ..auth import forms
+from ..emails import send_sub
 
 
-@main.route('/')
-@main.route('/index/')
+@main.route('/',methods=['GET','POST'])
+@main.route('/index/', methods=['GET','POST'])
 def index():
     form = SubscriptionForm()
     title = 'Blender Fender - HOME'
     posts= BlogPost.get_all_posts()
+
+    # msg = Message('Welcome to Blender Fender', sender="plucaslambert@gmail.com", recipients=[])
     
     if form.validate_on_submit():
         subscriber = Subscriber(email=form.email.data)
         db.session.add(subscriber)
         db.session.commit()
-
-        email_message('Succesfully registered to Blender Fender','email/subscribe_email', subscriber.email, subscriber=subscriber)
+        send_sub(subscriber)
         flash('Nice! Welcome to the clan! A confirmation email has been sent to you')
-        return redirect(url_for("main.index"))
+
     return render_template('index.html', title=title, subscribe_form = form, post=posts )
 
 
