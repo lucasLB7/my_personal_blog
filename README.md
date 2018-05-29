@@ -1,10 +1,20 @@
-# PITCH IT
+# BLENDER FENDER
 - Made by : Lucas Lambert
 - plucaslambert@gmail.com
 
-Welcome to pitch it. We believe that inspiration should be shared. 
-Create your one minute pitches and post them for all to see. 
-All users can view each others pitches & review them.
+Get started with Blender CGI.
+A community based blog that focuses on tutorials for blender
+Final vesrion will have a User rating system to allow users with good content to be "rewarded for their participation"
+
+## FUNCTIONALITY
+
+A user can visit the app and view tutorials as well as comment on them **without having to sign up or register**.
+Only a registered user can create new tutorials.
+
+First time visit (**not registered**):
+
+![alt text](/app/static/images/scrn-shot1.png)
+
 
 The app is **under development** and in pre Alpha stages. Thank you for your **understanding** and sorry for the bugs. 
 
@@ -13,28 +23,20 @@ The app is **under development** and in pre Alpha stages. Thank you for your **u
 
 Installing dependancies & requirements to run this app:
 
-1. Linux based opperating system [Download Ubuntu](https://www.ubuntu.com/)
-2. Python 3.6.2 (Depending on OS, use pythonenv to set your python to the approprite version)
-3. Python pip(3) to install dependancies
-4. All dependancies & Prerequisites
+To install dependancies, simply run:
+
+```pip3 install requirements.txt```
+
+**This will run pip to install the flask/requirements**
+
 
 ### Prerequisites
 
-alembic
-Flask
-Flask-Bootstrap
-Flask-Login
-Flask-Mail
-flask-markdown2
-Flask-Migrate
-Flask-Script
-Flask-SimpleMDE
-Flask-SQLAlchemy
-Flask-WTF
-psycopg2
-SQLAlchemy
-Werkzeug
-WTForms
+- Python 3.6.2
+- Python flask
+- Linux based OS
+- PIP installer
+- Git hub
 
 ### Installing
 
@@ -47,20 +49,20 @@ First, install python pip:
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 ```
 
--clone the following repository: **https://github.com/lucasLB7/One_minute_pitches/tree/TRY--templatesSwitchUp**
+-clone the following repository: **https://github.com/lucasLB7/my_personal_blog/tree/backup**
 
 Once cloned I would advice setting up a virtual environment using **virtualenv**.
 Then run the virtual environment using:
 
 ```
-source (name of virtual env)/bin/activate
+source venv/bin/activate
 ```
 After activating the virtual env, you need to make sure all dependancies are installed:
 
 run in command prompt:
 
 ```
-pip3 install (name of Prerequisites)
+pip3 install requirements.txt
 ```
 
 Install the above mentioned Prerequisites following the pip install model.
@@ -73,12 +75,6 @@ __this will launch a local server__ you can visit the app on: __localhost:5000__
 
 
 
-## app expectations:
-
--On visiting the site you are redrected to a log in form. If you are not registered follow the link to the register page.
-- Once you have registered you can now log in and access the main page.
-
-On this page you can create new pitches & comment/like the pitches..
 
 
 
