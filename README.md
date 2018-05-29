@@ -93,13 +93,13 @@ python3 manage.py server
 __this will launch a local server__ you can visit the app on: __localhost:5000__
 
 
-
-
-
-
-
 ## Running the tests
+```python 
+python  manage.py test`
+```
 
+## Live Demo
+click on this link [blenderfenderapp](https://blenderfenderapp.herokuapp.com)
 
 ## Built With
 
