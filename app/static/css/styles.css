@@ -22,6 +22,14 @@ font-family: 'Carter One', cursive; */
     text-align: center;
 }
 
+<<<<<<< HEAD
+=======
+.base_style {
+    background-image: url(../images/indexBackground.png);
+    background-size: cover;
+}
+
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
 .main_page{
     text-align: center;
     border-radius: 2%;
@@ -104,5 +112,23 @@ font-family: 'Carter One', cursive; */
 }
 
 .my_tron{
+<<<<<<< HEAD
     background-image: url(../images/background_image.png)
+=======
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.tutorials{
+    background-image: url(../images/grey_background.png);
+    background-size: cover;
+}
+
+.listOfTutorials{
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 30px;
+    color: orange
+
+
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
 }

@@ -1,10 +1,15 @@
 from flask import render_template, request, redirect, url_for, abort  
 from . import main  
+<<<<<<< HEAD
 from .forms import CommentsForm, UpdateProfile, PitchForm, UpvoteForm
+=======
+from .forms import CommentsForm, UpdateProfile, PostForm, UpvoteForm, SubscriptionForm
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
 from ..models import Comment, BlogPost, Admin
 from flask_login import login_required, current_user
 from .. import db
 import markdown2
+<<<<<<< HEAD
 
 
 
@@ -41,10 +46,101 @@ def Motivational_Speeches():
     title = 'PITCH-IT Motivational Speeches'
 
     pitches= Pitch.get_all_pitches()
+=======
+from ..auth import forms
+
+
+@main.route('/')
+@main.route('/index/')
+def index():
+    form = SubscriptionForm()
+    title = 'Blender Fender - HOME'
+    posts= BlogPost.get_all_posts()
+    
+    if form.validate_on_submit():
+        subscriber = Subscriber(email=form.email.data)
+        db.session.add(subscriber)
+        db.session.commit()
+
+        email_message('Succesfully registered to Blender Fender','email/subscribe_email', subscriber.email, subscriber=subscriber)
+        flash('Nice! Welcome to the clan! A confirmation email has been sent to you')
+        return redirect(url_for("main.index"))
+    return render_template('index.html', title=title, subscribe_form = form, post=posts )
+
+
+
+@main.route('/main/<int:id>')
+def delete(id):
+    post = BlogPost.query.filter_by(id=id).first()
+    BlogPost.delete_post(post)
+    return redirect(url_for('main.admin'))
+
+
+
+@main.route('/main/admin/',methods = ["GET","POST"])
+@login_required
+def admin():
+    form = PostForm()
+    title = 'Blender Fender - Admin page'
+    search_post = request.args.get('pitch_query')
+    posts= BlogPost.get_all_posts()
+    
+
+    
+    if form.validate_on_submit():
+        post = form.content.data
+        category_id = form.category_id.data
+        mytitle=form.title.data
+        description = form.description.data
+        new_post = BlogPost(post = post, category_id = category_id, post_title = mytitle, description = description)
+        new_post.save_post()
+        print(new_post.post)
+        print(new_post.post_title)
+        print(new_post.description)
+
+
+
+    return render_template('admin_page.html', title = title, post = posts, new_posts_form = form)
+
+
+@main.route('/main/tutorials/')
+def tutorials():
+    title = 'Blender Fender - Tutorials'
+    posts= BlogPost.get_all_posts()
+
+    return render_template('tutorial.html',title= title ,post = posts)
+    
+
+
+#this section consist of the category root functions
+
+@main.route('/introduction/posts/')
+def introduction():
+    posts = BlogPost.get_all_posts()
+    title = 'Introduction to Blender'  
+    return render_template('creative_ideas.html', title = title, pitches= pitches )
+
+@main.route('/intermediary/posts/')
+def intermediary():
+
+    title = 'Intermediary Blender tutorials'
+
+    posts = BlogPost.get_all_posts()
+
+    return render_template('pick_up_lines.html', title = title, pitches= pitches )
+
+@main.route('/advanced/posts/')
+def advanced():
+   
+    title = 'Advanced Blender tutorials'
+
+    posts = BlogPost.get_all_posts()
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
 
     return render_template('promotion.html', title = title, pitches= pitches )
 
 
+<<<<<<< HEAD
 @main.route('/product/pitches/')
 def Business_Ideas():
     '''
@@ -52,6 +148,15 @@ def Business_Ideas():
     '''
     title = 'PITCH-IT Business Ideas'
     pitches= Pitch.get_all_pitches()
+=======
+@main.route('/python/posts/')
+def python():
+    '''
+    View root page function that returns the index page and its data
+    '''
+    title = 'Using Python in Blender'
+    posts = BlogPost.get_all_posts()
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
     return render_template('businessIdeas.html', title = title, pitches= pitches )
  
 #  end of category root functions
@@ -78,16 +183,26 @@ def search(pitch_name):
 
 @main.route('/pitch/new/', methods = ['GET','POST'])
 @login_required
+<<<<<<< HEAD
 def new_pitch():
   
     form = PitchForm()
+=======
+def new_post():
+  
+    form = PostForm()
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
     if category is None:
         abort( 404 )
 
     if form.validate_on_submit():
         pitch= form.content.data
         category_id = form.category_id.data
+<<<<<<< HEAD
         new_pitch= Pitch(pitch= pitch, category_id = category_id)
+=======
+        new_post= Pitch(pitch= pitch, category_id = category_id)
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
 
         new_pitch.save_pitch()
         return redirect(url_for('main.index'))

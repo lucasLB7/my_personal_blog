@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% macro displayPitches(pitches_list) %}
 
     {% for pitch in pitches_list %}
@@ -8,11 +9,88 @@
           <a href="{{url_for('main.new_comment',id=pitch.id)}}">Give us your thoughts</a>&nbsp;&nbsp;|
           <a href="{{url_for('main.view_comments',id=pitch.id)}}">View comments</a>&nbsp;&nbsp;|
           <a href="{{url_for('main.new_comment',id=pitch.id)}}">Vote</a>
+=======
+{% macro displayPostsAdmin(post) %}
+
+    {% for post in post %}
+      <div class="panel">
+          
+          {% if post.category_id ==1 %}
+              <h1>Introduction to Blender</h1>
+          {% elif post.category_id==2 %}
+              <h1>Intermediary tutorials</h1>
+          {% elif post.category_id==3 %}
+              <h1>Advanced tutorials</h1>
+          {% elif post.category_id==4 %}
+              <h1>Blender python scrypting</h1>
+          {% endif %}
+          <h3>{{post.post_title}}</h3>
+          <p>{{post.post}}</p>
+
+          <a href="{{url_for('main.delete', id=post.id)}}">Delete post</a>
       </div> 
     {% endfor %}
 
 {% endmacro %}
 
+{% macro displayPostsPage(post) %}
+
+    {% for post in post %}
+      <div class="panel">
+          
+          {% if post.category_id ==1 %}
+              <h1>Introduction to Blender</h1>
+          {% elif post.category_id==2 %}
+              <h1>Intermediary tutorials</h1>
+          {% elif post.category_id==3 %}
+              <h1>Advanced tutorials</h1>
+          {% elif post.category_id==4 %}
+              <h1>Blender python scrypting</h1>
+          {% endif %}
+          <h3>{{post.post_title}}</h3>
+          <p>{{post.post}}</p>
+
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
+      </div> 
+    {% endfor %}
+
+{% endmacro %}
+
+<<<<<<< HEAD
+=======
+
+
+{% macro displayPosts(posts) %}
+
+    {% for post in posts %}
+      <div class="panel tutorials">
+        <div class="listOfTutorials">
+          
+          {% if post.category_id ==1 %}
+              <h1>Introduction to Blender</h1>
+          {% elif post.category_id==2 %}
+              <h1>Intermediary tutorials</h1>
+          {% elif post.category_id==3 %}
+              <h1>Advanced tutorials</h1>
+          {% elif post.category_id==4 %}
+              <h1>Blender python scrypting</h1>
+          {% endif %}
+          <h3>TITLE: {{post.post_title}}</h3>
+        
+                <div class="jumbotron">
+              <div class="card card-body">{{post.description}}</div>
+              <a href="{{url_for('main.tutorials')}}" class="categories">View tutorial</a>
+            </div>
+            </div>
+
+            
+          </div> 
+          </div>
+    {% endfor %}
+
+{% endmacro %}
+
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
 <!-- Displaying comments macro -->
 {% macro displayComments(list_of_comments) %}
 {% for comment in list_of_comments  %}
@@ -30,7 +108,11 @@
 {% endfor %}
 {% endmacro %}
 
+<<<<<<< HEAD
 {% macro displayPitchesInCategories(pitches,id)%}
+=======
+{% macro displayPitchesInCategories(posts,id)%}
+>>>>>>> 9e8c0c8e18be9227b31f24853ec841f53d9a7723
   {% for pitch in pitches %}
     {% if pitch.category_id==id%}
         <div class="panel style="style="box-shadow: 5px 5px 5px 5px #f2f2f2; padding:10px;">
