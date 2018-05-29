@@ -15,6 +15,25 @@ First time visit (**not registered**):
 
 ![alt text](/app/static/images/scrn-shot1.png)
 
+A user can view comments directly on screen, no need to sign in.
+
+**click on view tutorial to go to the tutorial page**
+
+![alt text](/app/static/images/ss2.png)
+
+**To create tutorials:**
+You first need to REGISTER:
+![alt text](/app/static/images/register.png)
+
+Then you need to log in
+
+![alt text](/app/static/images/login.png)
+
+Now you have access to the create new tutorials portal
+
+![alt text](/app/static/images/adminportal.png)
+![alt text](/app/static/images/createPost.png)
+
 
 The app is **under development** and in pre Alpha stages. Thank you for your **understanding** and sorry for the bugs. 
 
