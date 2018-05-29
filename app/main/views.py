@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, abort  
 from . import main  
-from .forms import CommentsForm, UpdateProfile, PostForm, UpvoteForm, SubscriptionForm
+from .forms import CommentsForm, UpdateProfile, PostForm, SubscriptionForm
 from ..models import Comment, BlogPost, Admin
 from flask_login import login_required, current_user
 from .. import db
@@ -61,13 +61,18 @@ def admin():
     return render_template('admin_page.html', title = title, post = posts, new_posts_form = form)
 
 
-@main.route('/main/tutorials/')
+@main.route('/main/tutorials/', methods = ["GET","POST"])
 def tutorials():
     title = 'Blender Fender - Tutorials'
     posts= BlogPost.get_all_posts()
+    form = CommentsForm()
+    if form.validate_on_submit():
+        new_comment = Comment(pitch_id =id,comment=form.comment.data, username=username)
+        new_comment.save_comment()
+        return redirect(url_for('main.tutorials'))
 
-    return render_template('tutorial.html',title= title ,post = posts)
-    
+    return render_template('tutorial.html',title= title ,post = posts, comment_form=form)
+
 
 
 #this section consist of the category root functions
@@ -161,9 +166,8 @@ def category(id):
 @login_required
 def new_comment(id):
     form = CommentsForm()
-    vote_form = UpvoteForm()
     if form.validate_on_submit():
-        new_comment = Comment(pitch_id =id,comment=form.comment.data,username=current_user.username,votes=form.vote.data)
+        new_comment = Comment(pitch_id =id,comment=form.comment.data,username=current_user.username)
         new_comment.save_comment()
         return redirect(url_for('main.index'))
     #title = f'{pitch_result.id} review'
