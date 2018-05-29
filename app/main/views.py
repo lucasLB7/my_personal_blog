@@ -24,6 +24,8 @@ def index():
         db.session.commit()
         send_sub(subscriber)
         flash('Nice! Welcome to the clan! A confirmation email has been sent to you')
+        return render_template('index.html', title=title, subscribe_form = form, post=posts,flash=flash )
+
         
 
     return render_template('index.html', title=title, subscribe_form = form, post=posts )
