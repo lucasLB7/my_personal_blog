@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms.validators import Required
-from wtforms import StringField,TextAreaField,SubmitField, SelectField, RadioField, BooleanField, DateField
+from wtforms.validators import Required,Email,EqualTo
+from wtforms import StringField,TextAreaField,SubmitField, SelectField, RadioField, BooleanField, DateField, ValidationError
+from ..models import Subscriber
 
 
  
@@ -29,4 +30,9 @@ class CommentsForm(FlaskForm):
 class SubscriptionForm(FlaskForm):
     email = StringField('Email Address',validators=[Required()])
     submit = SubmitField('Subscribe!')
+
+    def validate_email(self,data_field):
+        if Subscriber.query.filter_by(email = data_field.data).first():
+            raise ValidationError('Email address already registered')
+
     
